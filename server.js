@@ -11,6 +11,7 @@ const cookieSession = require('cookie-session');
 const bcrypt = require('bcrypt');
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
+const {getuserByID} = require("./helper/helper");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -46,12 +47,13 @@ app.use(cookieSession({
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
-const widgetsRoutes = require("./routes/widgets");
-
+const mapRoutes = require("./routes/maps");
+const loginRoutes = require("./routes/login");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
+app.use("/maps", mapRoutes(db));
+app.use("/login", loginRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -59,8 +61,7 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Separate them into separate routes files (see above).
 
 app.get("/", (req, res) => {
-
-  res.render("index");
+  res.render('index');
 });
 
 app.listen(PORT, () => {
