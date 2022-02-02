@@ -1,0 +1,22 @@
+<%- include('partials/_header') %>
+<main style="margin: 1em;">
+  <h3>All Maps</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">List Of Maps</th>
+        <th scope="col">Craeted By</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% for(let map of maps) { %>
+        <tr>
+          <td><a href="/maps/<%=map.id %>" > <%=map.map%></a></td>
+          <td><%=map.created_by%></td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</main>
+<%- include('partials/_footer') %>
+
