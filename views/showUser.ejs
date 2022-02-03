@@ -1,3 +1,15 @@
 <%- include('partials/_header') %>
 <h1>hello <%= user.name %></h1>
+<main style="margin: 1em;">
+  <h3>Maps created by you</h3>
+  <% for(let map of maps){ %>
+    <ul>
+      <li><%= map.title %></li>
+    </ul>
+
+
+ <% } %>
+
+
+</main>
 <%- include('partials/_footer') %>
