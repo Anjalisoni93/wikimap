@@ -1,6 +1,7 @@
 const express = require('express');
+const { get } = require('express/lib/response');
 const router  = express.Router();
-const {getuserByID} = require('../helper/helper')
+const {getuserByID,getfavouriteMapByUser,getMapsByUser} = require('../helper/helper')
 
 module.exports = (db) => {
   const tempVariable = {}
@@ -9,10 +10,23 @@ module.exports = (db) => {
     req.session.user_id = id;
     getuserByID(db,id)
       .then(user => {
-       tempVariable.user = user
-        res.render('showUser',tempVariable);
-      })
+      if(!user){
+        tempVariable.user = null;
+        res.send("no user found..");
+      }else{
+        tempVariable.user = user
+        getMapsByUser(db,id)
+        .then(maps =>{
+          tempVariable.maps = maps
+          getfavouriteMapByUser(db,id)
+          .then(favourites => {
+            tempVariable.favourites = favourites
+            res.render('showUser',tempVariable);
+          })
+        })
+      }
 
-  });
+      })
+    });
   return router;
 };
