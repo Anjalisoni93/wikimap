@@ -1,20 +1,18 @@
 const express = require('express');
 const router  = express.Router();
+const {getuserByID} = require('../helper/helper')
 
 module.exports = (db) => {
+  const tempVariable = {}
   router.get("/:id", (req, res) => {
-    req.session.user_id = req.params.id;
-    db.query(`SELECT * FROM users
-              WHERE id = ${req.session.user_id}`)
-      .then(data => {
-        const users = data.rows[0];
-        res.render('showUser', {users});
+    const id = req.params.id;
+    req.session.user_id = id;
+    getuserByID(db,id)
+      .then(user => {
+       tempVariable.user = user
+        res.render('showUser',tempVariable);
       })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
+
   });
   return router;
 };
