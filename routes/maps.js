@@ -3,6 +3,7 @@ const router  = express.Router();
 const {getuserByID,getAllMaps} = require('../helper/helper');
 
 module.exports = (db) => {
+  //this route is to show all maps
   const tempVariable = {}
   router.get("/", (req, res) => {
         const id = req.session.user_id;
@@ -19,6 +20,7 @@ module.exports = (db) => {
         // res.json(showMaps[0]);
       })
 
+    //route to get specific map with id
 
   return router;
 };
