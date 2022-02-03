@@ -18,13 +18,21 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link" href="/maps">All Maps</a>
-          <a class="nav-item nav-link" href="/map/new">Create New Map</a>
+      <% if(user){ %>
+        <form action="/logout" method = "POST" class = "username">
+          <span class = "lead">Logged As: <%=user.name%></span>    <button type="submit" class="btn btn-warning mt-4">Log Out</button>
+
+        </form>
+
+      <% } else{ %>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/maps">All Maps</a>
+            <a class="nav-item nav-link" href="/map/new">Create New Map</a>
+          </div>
         </div>
-      </div>
-      
+      <% } %>
     </nav>
   </header>
   <body>
