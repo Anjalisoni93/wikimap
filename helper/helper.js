@@ -1,23 +1,63 @@
-//Create function to get user by email
 
-/* const getUserByEmail = function (db,email) {
-  for(const key in db){
-    if(db[key].email === email){
-      return db[key];
-   }
-  }
-  return undefined;
-}; */
+require("dotenv").config();
 
-/* const getuserByID = (db,id)=>{
-  return db.query (`SELECT * FROM users
-                    WHERE id = ${id};`)
-        .then(user => {
-          // return user.rows;
-          console.log("testing", user.rows);
+
+//get coordinates of first Row to show on homepage
+const getcoordinates = (db) =>{
+  const queryString = `SELECT maps.longitude as longitude,maps.latitude as latitude
+      FROM maps
+      ORDER BY maps.id
+      LIMIT 1;
+  `
+  return db.query(queryString)
+  .then( (data)=>{
+    return data.rows[0];
+  })
+}
+//get user with the id
+const getuserByID = (db,givenId)=>{
+  const queryString = `SELECT * FROM users
+  WHERE id = $1;`
+  const values = [givenId];
+  return db.query (queryString,values)
+        .then(res => {
+         return  res.rows[0];
         })
-};
 
-module.exports = {getuserByID}; */
+};
+//get all maps along with their creator
+const getAllMaps = (db) =>{
+  const queryString = `SELECT maps.title as map ,maps.id as id , users.name as created_by
+  FROM maps
+  JOIN users ON users.id = user_id;`
+  return db.query(queryString)
+    .then(res => {
+      return res.rows;
+    })
+
+}
+
+//get all created maps by particuler user
+const getMapsByUser = (db,provided_id)=>{
+  const queryString = `SELECT * FROM maps WHERE user_id = $1;`
+  const values = [provided_id];
+  return db.query(queryString,values)
+    .then(res => {
+      return res.rows;
+    })
+}
+
+//get all favourite maps by particuler user
+const getfavouriteMapByUser = (db,provided_id)=>{
+  const queryString = `SELECT * FROM favourite_maps WHERE user_id = $1;`
+  const values = [provided_id];
+  return db.query(queryString,values)
+    .then(res => {
+      return res.rows;
+    })
+}
+
+
+module.exports = {getuserByID,getAllMaps,getMapsByUser,getfavouriteMapByUser,getcoordinates};
 
 

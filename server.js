@@ -12,6 +12,7 @@ const bcrypt = require('bcrypt');
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
 const {getuserByID} = require("./helper/helper");
+const router  = express.Router();
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -46,23 +47,25 @@ app.use(cookieSession({
 }))
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
+const homeRoutes = require("./routes/index");
 const usersRoutes = require("./routes/users");
 const mapRoutes = require("./routes/maps");
 const loginRoutes = require("./routes/login");
+const logoutRoutes = require("./routes/logout")
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
+app.use('/',homeRoutes(db));
 app.use("/api/users", usersRoutes(db));
 app.use("/maps", mapRoutes(db));
 app.use("/login", loginRoutes(db));
+app.use('/logout',logoutRoutes(db));
+
+
 // Note: mount other resources here, using the same pattern above
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-
-app.get("/", (req, res) => {
-  res.render('index');
-});
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

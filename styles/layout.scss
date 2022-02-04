@@ -4,8 +4,19 @@ body,
 html {
   margin: 0;
 }
-
-.map_Logo {
+.map_Logo{
   height: 700px;
   width: 700px;
 }
+.username{
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  margin-left: 55em;
+  justify-content: space-between;
+  width: 17%;
+}
+#map {
+  height: 400px;
+}
+
