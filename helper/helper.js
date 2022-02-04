@@ -1,13 +1,10 @@
-//Create function to get user by email
 
-/* const getUserByEmail = function (db,email) {
-  for(const key in db){
-    if(db[key].email === email){
-      return db[key];
-   }
-  }
-  return undefined;
-}; */
+require("dotenv").config();
+
+
+
+
+
 //get user with the id
 const getuserByID = (db,givenId)=>{
   const queryString = `SELECT * FROM users
