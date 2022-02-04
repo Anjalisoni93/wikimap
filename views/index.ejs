@@ -1,3 +1,27 @@
 <%- include('partials/_header') %>
+<figure class="text-center">
+  <blockquote class="blockquote">
+    <p>Welcome to Wiki Map..where you can do Everything..</p>
+  </blockquote>
+  <figcaption class="blockquote-footer">
+    Well not Everything..but you can add your favourite map and add pins.. <cite title="Source Title">and thats about it...</cite>
+  </figcaption>
+</figure>
+<div id = "map"></div>
+
+<script>
+let latitude = `<%= latitude %>`;
+let longitude = `<%= longitude %>`;
+let  homePage_map =  L.map('map').setView([latitude,longitude], 13);
+  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiandhbGlhIiwiYSI6ImNrejdxa21icDFkaXUyb254d3lycm1waTMifQ.EElK29xVtr-xefOmbDrrYw', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+     tileSize: 512 ,
+   zoomOffset: -1,
+   accessToken: 'pk.eyJ1IjoiandhbGlhIiwiYSI6ImNrejdxa21icDFkaXUyb254d3lycm1waTMifQ.EElK29xVtr-xefOmbDrrYw'
+   }).addTo(homePage_map)
+
+</script>
 
 <%- include('partials/_footer') %>
