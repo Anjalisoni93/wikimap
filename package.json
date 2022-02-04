@@ -12,6 +12,9 @@
   "author": "Lighthouse Labs",
   "license": "ISC",
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.13.4",
+    "@mapbox/mapbox-sdk": "^0.13.2",
+    "axios": "^0.25.0",
     "bcrypt": "^5.0.1",
     "chalk": "^2.4.2",
     "cookie-session": "^2.0.0",
