@@ -2,9 +2,18 @@
 require("dotenv").config();
 
 
-
-
-
+//get coordinates of first Row to show on homepage
+const getcoordinates = (db) =>{
+  const queryString = `SELECT maps.longitude as longitude,maps.latitude as latitude
+      FROM maps
+      ORDER BY maps.id
+      LIMIT 1;
+  `
+  return db.query(queryString)
+  .then( (data)=>{
+    return data.rows[0];
+  })
+}
 //get user with the id
 const getuserByID = (db,givenId)=>{
   const queryString = `SELECT * FROM users
@@ -49,6 +58,6 @@ const getfavouriteMapByUser = (db,provided_id)=>{
 }
 
 
-module.exports = {getuserByID,getAllMaps,getMapsByUser,getfavouriteMapByUser};
+module.exports = {getuserByID,getAllMaps,getMapsByUser,getfavouriteMapByUser,getcoordinates};
 
 
