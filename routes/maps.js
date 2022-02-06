@@ -24,17 +24,24 @@ module.exports = (db) => {
         const tempVariable = {}
         if(!req.session.user_id){
           tempVariable.user = null;
+          getMapById(db,id)
+            .then(mapDetails =>{
+              tempVariable.mapDetails = mapDetails
+              return  res.render('mapShow',tempVariable);
+        });
         }else{
           getuserByID(db,req.session.user_id)
           .then(user =>{
             tempVariable.user = user
+            getMapById(db,id)
+            .then(mapDetails =>{
+              tempVariable.mapDetails = mapDetails
+              return  res.render('mapShow',tempVariable);
+        })
           });
         }
-        getMapById(db,id)
-        .then(mapDetails =>{
-          tempVariable.mapDetails = mapDetails
-         return  res.render('mapShow',tempVariable);
-        })
+        console.log( 'here is the temp',tempVariable);
+
 
       })
   return router;
