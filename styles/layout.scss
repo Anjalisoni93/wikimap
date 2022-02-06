@@ -4,6 +4,9 @@ body,
 html {
   margin: 0;
 }
+.navbar a {
+  width: 9em;
+}
 .map_Logo{
   height: 700px;
   width: 700px;
@@ -12,7 +15,6 @@ html {
   display: flex;
   flex-direction:row;
   align-items: center;
-  margin-left: 55em;
   justify-content: space-between;
   width: 17%;
 }
@@ -20,6 +22,15 @@ html {
   height: 400px;
 }
 #showmap{
-  height: 300px;
-  width:400px;
+  height: 700px;
+  width:700px;
+}
+.mapcontainer{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 1em;
+}
+.userMap{
+  height: 400px;
 }
