@@ -25,6 +25,20 @@ const getuserByID = (db,givenId)=>{
         })
 
 };
+//get map by id
+
+const getMapById = (db,mapId)=>{
+  const queryString = `SELECT * FROM maps WHERE maps.id = $1;`
+  const values = [mapId];
+  return db.query(queryString,values)
+  .then(data =>{
+    //console.log(data.rows[0]);
+    return data.rows[0];
+  })
+}
+
+
+
 //get all maps along with their creator
 const getAllMaps = (db) =>{
   const queryString = `SELECT maps.title as map ,maps.id as id , users.name as created_by
@@ -58,6 +72,6 @@ const getfavouriteMapByUser = (db,provided_id)=>{
 }
 
 
-module.exports = {getuserByID,getAllMaps,getMapsByUser,getfavouriteMapByUser,getcoordinates};
+module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getfavouriteMapByUser,getcoordinates};
 
 
