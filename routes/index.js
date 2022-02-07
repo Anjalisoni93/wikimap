@@ -18,7 +18,6 @@ module.exports = (db) => {
     getuserByID(db,id)
     .then(user => {
     tempVariable.user = user;
-    console.log(tempVariable);
     return res.render('index',tempVariable);
     })
   });
