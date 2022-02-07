@@ -18,6 +18,11 @@ module.exports = (db) => {
         })
       })
 
+    // route to create a new map
+    router.get("/new", (req, res) => {
+      return res.render('newMap')
+    })
+
     //route to get specific map with id
       router.get('/:id',(req,res)=>{
         const id = req.params.id;
