@@ -1,0 +1,31 @@
+<%- include('partials/_header') %>
+<div class="card text-center">
+  <div class="card-header">
+    Hi <%= user.name %>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Here are the Pins you have created</h5>
+    </div>
+</div>
+<table class="table table-info">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Pinned On</th>
+      <th scope="col">View</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let pin of pins) { %>
+      <tr>
+        <td><%= pin.title %></td>
+        <td><%= pin.created_at.toDateString()%></td>
+        <td> <a href="/pins/<%=pin.id%>">Explore</a></td>
+      </tr>
+   <% } %>
+  </tbody>
+</table>
+
+
+
+<%- include('partials/_footer') %>

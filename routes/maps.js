@@ -1,6 +1,6 @@
 const express = require('express');
 const router  = express.Router();
-const {getuserByID,getAllMaps,getMapById} = require('../helper/helper');
+const {getuserByID,getAllMaps,getMapById,showAllpins} = require('../helper/helper');
 
 module.exports = (db) => {
   //this route is to show all maps
@@ -29,17 +29,35 @@ module.exports = (db) => {
         const tempVariable = {}
         if(!req.session.user_id){
           tempVariable.user = null;
+          getMapById(db,id)
+            .then(mapDetails =>{
+              tempVariable.mapDetails = mapDetails
+              showAllpins(db,id)
+              .then(pins =>{
+                tempVariable.pins = pins;
+                console.log(tempVariable.pins);
+                return  res.render('mapShow',tempVariable);
+              });
+
+        });
         }else{
           getuserByID(db,req.session.user_id)
           .then(user =>{
             tempVariable.user = user
+            getMapById(db,id)
+            .then(mapDetails =>{
+              tempVariable.mapDetails = mapDetails
+              showAllpins(db,id)
+              .then(pins =>{
+                tempVariable.pins = pins;
+                console.log(tempVariable.pins);
+                return  res.render('mapShow',tempVariable);
+              });
+            });
           });
         }
-        getMapById(db,id)
-        .then(mapDetails =>{
-          tempVariable.mapDetails = mapDetails
-         return  res.render('mapShow',tempVariable);
-        })
+
+
 
       })
   return router;

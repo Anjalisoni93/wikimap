@@ -1,0 +1,23 @@
+<%- include('partials/_header') %>
+<div class="pinContainer">
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="<%= pin.image_url %>" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><%=pin.title %></h5>
+          <p class="card-text"><%= pin.description %></p>
+
+        </div>
+        <a href="/pins/<%=pin.id %>/edit" type="button" class="btn btn-outline-info">Edit</a>
+        <form action="/pin/<%=pin.id %>?_method=DELETE" class = 'pinDelete'method="post">
+          <button type="button" class="btn btn-outline-danger">Delete</button>
+        </form>
+
+      </div>
+
+      </div>
+
+<%- include('partials/_footer') %>
