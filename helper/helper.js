@@ -70,8 +70,35 @@ const getfavouriteMapByUser = (db,provided_id)=>{
       return res.rows;
     })
 }
+//get all pins for particuler map
+const showAllpins = (db,mapID)=>{
+  const queryString = `SELECT * FROM pins WHERE map_id = $1;`
+  const values = [mapID];
+  return db.query(queryString,values)
+  .then(allpins =>{
+    return allpins.rows;
+  })
+}
+//get all pins by particuler user
 
+const showPinsByUser = (db,userId)=>{
+  const queryString = `SELECT * FROM pins WHERE user_id = $1;`
+  const values = [userId];
+  return db.query(queryString,values)
+  .then(res =>{
+    return res.rows;
+  })
+}
+//show pin by its ID
+const showPinById = (db,pinId) =>{
+  const queryString = `SELECT * FROM pins WHERE id = $1;`
+  const values = [pinId];
+  return db.query(queryString,values)
+  .then(res =>{
+    return res.rows[0];
+  })
+}
 
-module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getfavouriteMapByUser,getcoordinates};
+module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getfavouriteMapByUser,getcoordinates,showAllpins,showPinsByUser,showPinById};
 
 
