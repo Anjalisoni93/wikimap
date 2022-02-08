@@ -34,17 +34,14 @@
           <div class="navbar-nav">
             <a class="nav-item nav-link" href="/maps">All Maps</a>
             <a class="nav-item nav-link" href="/maps/new">Create Maps</a>
-
             <a class="nav-item nav-link" href="/pins">Your Pins</a>
-    </div>
+          </div>
         </div>
         <form action="/logout" method = "POST" class = "username">
-          <span>Hi <%=user.name%></span>    <button type="submit" class="btn btn-info mt-4">Log Out</button>
-
+          <span>Hi <%=user.name%></span>
+          <button type="submit" class="btn btn-info mt-4">Log Out</button>
         </form>
-
       <% } else{ %>
-
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-item nav-link" href="/maps">All Maps</a>
