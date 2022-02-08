@@ -1,4 +1,4 @@
-
+const axios = require('axios');
 require("dotenv").config();
 
 
@@ -99,6 +99,23 @@ const showPinById = (db,pinId) =>{
   })
 }
 
-module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getfavouriteMapByUser,getcoordinates,showAllpins,showPinsByUser,showPinById};
+//Get Coordinates
+const getCoordinates = (city,country)=>{
+ return  axios.get(`https://open.mapquestapi.com/geocoding/v1/address?key=UzrC4CYhwxbQx9VZwS7xsISrm0khxg7m&inFormat=kvp&outFormat=json&location=${city}%2C+${country}`)
+}
+
+//creating new map
+const createMap = (db,map) =>{
+  const queryString = `INSERT INTO maps(user_id,title,country,city,latitude,longitude,created_at)
+  VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *;`
+  const values = [map.user_id,map.title,map.country,map.city,map.latitude,map.longitude,map.created_at]
+  return db.query(queryString,values)
+  .then(res =>{
+    return res.rows[0];
+  })
+}
+
+
+module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getfavouriteMapByUser,getcoordinates,showAllpins,showPinsByUser,showPinById,createMap,getCoordinates};
 
 
