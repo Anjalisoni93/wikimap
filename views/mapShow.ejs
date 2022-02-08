@@ -1,39 +1,52 @@
 <%- include('partials/_header') %>
 
-<div class="card">
+<div class="card text-center">
   <div class="card-body">
     some of available maps of places around <%= mapDetails.city %>(<%=mapDetails.country %>)
   </div>
 </div>
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title"><%= mapDetails.title %></h5>
-    <p class="card-text"><small class="text-muted"><%=mapDetails.created_at %></small></p>
+
+  <div class="card userMap">
+    <div class="card-body">
+      <h5 class="card-title"><%= mapDetails.title %></h5>
+      <p class="card-text"><small class="text-muted"><%=mapDetails.created_at %></small></p>
+    </div>
+  <div id = "showmap">
   </div>
-<div id = "showmap">
+
+  <script>
+    let latitude = `<%= mapDetails.latitude %>`;
+    let longitude = `<%= mapDetails.longitude %>`;
+    let  homePage_map =  L.map('showmap').setView([latitude,longitude], 13);
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiandhbGlhIiwiYSI6ImNrejdxa21icDFkaXUyb254d3lycm1waTMifQ.EElK29xVtr-xefOmbDrrYw', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+         tileSize: 512 ,
+       zoomOffset: -1,
+       accessToken: 'pk.eyJ1IjoiandhbGlhIiwiYSI6ImNrejdxa21icDFkaXUyb254d3lycm1waTMifQ.EElK29xVtr-xefOmbDrrYw'
+       }).addTo(homePage_map)
+       let data = '<%- JSON.stringify(pins)%>'
+       let pins = JSON.parse(data);
+       //console.log(data)
+       L.marker([latitude,longitude]).addTo(homePage_map);
+       for(let pin of pins){
+         console.log(pin);
+        L.marker([pin.latitude,pin.longitude])
+        .addTo(homePage_map);
+      }
+
+    </script>
+    <% if (user) {%>
+      <div class="options">
+        <a href = '/maps/<%= mapDetails.id%>/edit' type="button" class="btn btn-warning">Edit Map</a>
+        <form action="/maps/<%=mapDetails.id %>?_method=DELETE" class = 'pinDelete'method="POST">
+          <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+      </div>
+    <% } else{%>
+      <a href="/maps" type="button" class="btn btn-warning">Go Back.</a>
+    <% } %>
 </div>
 
-<script>
-  let latitude = `<%= mapDetails.latitude %>`;
-  let longitude = `<%= mapDetails.longitude %>`;
-  let  homePage_map =  L.map('showmap').setView([latitude,longitude], 13);
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiandhbGlhIiwiYSI6ImNrejdxa21icDFkaXUyb254d3lycm1waTMifQ.EElK29xVtr-xefOmbDrrYw', {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      maxZoom: 18,
-      id: 'mapbox/streets-v11',
-       tileSize: 512 ,
-     zoomOffset: -1,
-     accessToken: 'pk.eyJ1IjoiandhbGlhIiwiYSI6ImNrejdxa21icDFkaXUyb254d3lycm1waTMifQ.EElK29xVtr-xefOmbDrrYw'
-     }).addTo(homePage_map)
-     let data = '<%- JSON.stringify(pins)%>'
-     let pins = JSON.parse(data);
-     //console.log(data)
-     L.marker([latitude,longitude]).addTo(homePage_map);
-     for(let pin of pins){
-       console.log(pin);
-      L.marker([pin.latitude,pin.longitude])
-      .addTo(homePage_map);
-    }
-
-  </script>
 <%- include('partials/_footer') %>

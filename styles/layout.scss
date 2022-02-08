@@ -26,18 +26,35 @@ html {
 }
 
 #showmap{
-  height: 700px;
-  width:700px;
+  height: 500px;
+  width:500px;
 }
-.mapcontainer{
+.options{
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  flex-direction: row;
+  justify-content: space-between;
+  width:32rem;
   margin-top: 1em;
 }
 .userMap{
+  align-items: center;
+}
+.mapcontainer{
+  display: flex;
+  justify-content: space-between;
+  margin: 4em;
+  flex-wrap: wrap;
+  margin-top: 2em;
+  padding: 2em;
+}
+.eachMap{
+  margin-bottom: 3em;
+}
+
+.userMap{
   height: 400px;
 }
+
 .pinContainer{
   margin-top: 2em;
   margin: 12em;
