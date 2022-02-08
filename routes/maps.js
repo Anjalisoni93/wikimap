@@ -53,7 +53,6 @@ router.post('/',(req,res)=>{
          return res.redirect(`/maps/${newMap.id}`);
         })
       })
-
     })
   }
 })
@@ -80,6 +79,7 @@ router.post('/',(req,res)=>{
         const id = req.params.id;
         const tempVariable = {}
         const user_id = req.session.user_id;
+        const loggedUser = user_id;
         if(!user_id){
           tempVariable.user = null;
           getMapById(db,id)
@@ -90,7 +90,6 @@ router.post('/',(req,res)=>{
                 tempVariable.pins = pins;
                 return  res.render('mapShow',tempVariable);
               });
-
         });
         }else{
 
@@ -106,8 +105,8 @@ router.post('/',(req,res)=>{
                   tempVariable.pins = pins;
                   return  res.render('mapShow',tempVariable);
                 });
-              }else{
-                tempVariable.user = null;
+              } else {
+                tempVariable.user = user;
                 tempVariable.mapDetails = mapDetails
                 showAllpins(db,id)
                 .then(pins =>{
