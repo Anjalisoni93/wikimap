@@ -26,8 +26,8 @@ const getuserByID = (db,givenId)=>{
         })
 
 };
-//get map by id
 
+//get map by id
 const getMapById = (db,mapId)=>{
   const queryString = `SELECT * FROM maps WHERE maps.id = $1;`
   const values = [mapId];
@@ -37,8 +37,6 @@ const getMapById = (db,mapId)=>{
     return data.rows[0];
   })
 }
-
-
 
 //get all maps along with their creator
 const getAllMaps = (db) =>{
@@ -102,23 +100,26 @@ const deleteMap = (db,mapID) =>{
 
 //get all pins for particuler map
 const showAllpins = (db,mapID)=>{
-  const queryString = `SELECT * FROM pins WHERE map_id = $1;`
+  const queryString = `SELECT * FROM pins WHERE map_id = $1
+                        AND pins.removed_at IS NULL ;`
   const values = [mapID];
   return db.query(queryString,values)
   .then(allpins =>{
     return allpins.rows;
   })
 }
-//get all pins by particuler user
 
+//get all pins by particuler user
 const showPinsByUser = (db,userId)=>{
-  const queryString = `SELECT * FROM pins WHERE user_id = $1;`
+  const queryString = `SELECT * FROM pins WHERE user_id = $1
+                        AND pins.removed_at IS NULL ;`
   const values = [userId];
   return db.query(queryString,values)
   .then(res =>{
     return res.rows;
   })
 }
+
 //show pin by its ID
 const showPinById = (db,pinId) =>{
   const queryString = `SELECT * FROM pins WHERE id = $1;`
@@ -129,9 +130,21 @@ const showPinById = (db,pinId) =>{
   })
 }
 
+
 //Get Coordinates
 const getCoordinates = (city,country)=>{
  return  axios.get(`https://open.mapquestapi.com/geocoding/v1/address?key=${Geo_Api}&inFormat=kvp&outFormat=json&location=${city}%2C+${country}`)
+}
+
+// Create PIN
+const createPin = (db, pin) => {
+  const queryString = `INSERT INTO pins (user_id, map_id, title, description, image_url, longitude, latitude, created_at)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`
+  const values = [pin.user_id, pin.map_id, pin.title, pin.description, pin.image_url, pin.longitude, pin.latitude, pin.created_at];
+  return db.query(queryString, values)
+  .then(res => {
+    return res.rows[0];
+  })
 }
 
 //creating new map
@@ -146,6 +159,6 @@ const createMap = (db,map) =>{
 }
 
 
-module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getfavouriteMapByUser,getcoordinates,showAllpins,showPinsByUser,showPinById,createMap,getCoordinates,updateMap,deleteMap};
+module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getfavouriteMapByUser,getcoordinates,showAllpins,showPinsByUser,showPinById,createMap,getCoordinates,updateMap,deleteMap,createPin};
 
 
