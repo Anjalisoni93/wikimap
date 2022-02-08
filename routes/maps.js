@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const axios = require('axios');
-const {getuserByID,getAllMaps,getMapById,showAllpins,createMap,getCoordinates} = require('../helper/helper');
+const {getuserByID,getAllMaps,getMapById,showAllpins,createMap,getCoordinates,updateMap,deleteMap} = require('../helper/helper');
 
 module.exports = (db) => {
   //this route is to show all maps
@@ -79,7 +79,8 @@ router.post('/',(req,res)=>{
       router.get('/:id',(req,res)=>{
         const id = req.params.id;
         const tempVariable = {}
-        if(!req.session.user_id){
+        const user_id = req.session.user_id;
+        if(!user_id){
           tempVariable.user = null;
           getMapById(db,id)
             .then(mapDetails =>{
@@ -87,30 +88,104 @@ router.post('/',(req,res)=>{
               showAllpins(db,id)
               .then(pins =>{
                 tempVariable.pins = pins;
-
                 return  res.render('mapShow',tempVariable);
               });
 
         });
         }else{
-          getuserByID(db,req.session.user_id)
+
+          getuserByID(db,user_id)
           .then(user =>{
-            tempVariable.user = user
             getMapById(db,id)
             .then(mapDetails =>{
-              tempVariable.mapDetails = mapDetails
-              showAllpins(db,id)
-              .then(pins =>{
-                tempVariable.pins = pins;
-                return  res.render('mapShow',tempVariable);
+              if(mapDetails.user_id === user.id){
+                tempVariable.user = user
+                tempVariable.mapDetails = mapDetails
+                showAllpins(db,id)
+                .then(pins =>{
+                  tempVariable.pins = pins;
+                  return  res.render('mapShow',tempVariable);
+                });
+              }else{
+                tempVariable.user = null;
+                tempVariable.mapDetails = mapDetails
+                showAllpins(db,id)
+                .then(pins =>{
+                  tempVariable.pins = pins;
+                  return  res.render('mapShow',tempVariable);
+                });
+              }
               });
             });
-          });
-        }
+          }
+        })
+//  EDIT ROUTE TO GET EDIT FORM
+        router.get('/:id/edit',(req,res)=>{
+          const tempVariable = {}
+          const id = req.session.user_id;
+          const mapID = req.params.id;
+          if(!id){
+            res.send("access denied")
+          }else{
+            getuserByID(db,id)
+            .then(user=>{
+              tempVariable.user = user;
+              getMapById(db,mapID)
+              .then(mapDetails => {
+              tempVariable.mapDetails = mapDetails;
+              return res.render('mapEdit',tempVariable);
+            })
+            })
+          }
+            })
 
 
-
+    //POST ROUTE FOR UPDATED ROUTE
+    router.put('/:id',(req,res)=>{
+      const mapID = req.params.id;
+      const userID = req.session.user_id;
+      const title = req.body.title;
+      const newmap = {
+        title
+      }
+      updateMap(db,mapID,newmap)
+      .then(updatedMap => {
+        res.redirect(`/login/${userID}`);
       })
+    })
+
+  //ROUTE TO DELETE A MAP
+    router.delete('/:id',(req,res)=>{
+
+      const user_id = req.session.user_id;
+      const mapID = req.params.id;
+      if(!user_id){
+        res.send('access denied');
+      }else{
+        getuserByID(db,user_id)
+        .then(user =>{
+          getMapById(db,mapID)
+          .then(map =>{
+            if(user.id === map.user_id){
+              deleteMap(db,mapID)
+              .then(deletedMap=>{
+
+                return res.redirect(`/login/${user_id}`);
+              })
+            }else{
+              res.send("access denied");
+            }
+          })
+        })
+      }
+
+
+    })
+
+
+
+
+
   return router;
 };
 
