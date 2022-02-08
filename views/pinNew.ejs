@@ -1,0 +1,37 @@
+<%- include('partials/_header') %>
+
+<div class="newmap-form">
+  <p class="lead text-center">
+    Create your Pin
+  </p>
+  <form action = "/pins/maps/<%= map.id %>" method="POST">
+    <div class="form-icon">
+        <span><i class="fa-solid fa-map-pin"></i>
+        </span>
+    </div>
+    <div class="form-group">
+      <select class="form-control item" name = "Country">
+        <option value="Canada">Canada</option>
+        <option value="USA">United States</option>
+        <option value="India">India</option>
+      </select>
+    </div>
+    <div class="form-group">
+        <input type="text" name = "City" class="form-control item" id="city" placeholder="City">
+    </div>
+    <div class="form-group">
+        <input type="text" name = "title" class="form-control item" id="title" placeholder="Title">
+    </div>
+    <div class="form-group">
+        <input type="text" name = "description" class="form-control item" id="description" placeholder="Description">
+    </div>
+    <div class="form-group">
+        <input type="text" name = "image" class="form-control item" id="image" placeholder="Enter the image URL">
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-block submit">Submit</button>
+    </div>
+  </form>
+</div>
+
+<%- include('partials/_footer') %>
