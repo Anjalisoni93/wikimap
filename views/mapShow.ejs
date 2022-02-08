@@ -25,12 +25,15 @@
      zoomOffset: -1,
      accessToken: 'pk.eyJ1IjoiandhbGlhIiwiYSI6ImNrejdxa21icDFkaXUyb254d3lycm1waTMifQ.EElK29xVtr-xefOmbDrrYw'
      }).addTo(homePage_map)
-
-    L.marker([latitude,longitude]).addTo(homePage_map);
-    //  for(let pin of pins){
-    //   L.marker([pin.latitude,pin.longitude])
-    //   .addTo(homePage_map);
-    // }
+     let data = '<%- JSON.stringify(pins)%>'
+     let pins = JSON.parse(data);
+     //console.log(data)
+     L.marker([latitude,longitude]).addTo(homePage_map);
+     for(let pin of pins){
+       console.log(pin);
+      L.marker([pin.latitude,pin.longitude])
+      .addTo(homePage_map);
+    }
 
   </script>
 <%- include('partials/_footer') %>

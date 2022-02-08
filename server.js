@@ -53,6 +53,7 @@ const mapRoutes = require("./routes/maps");
 const loginRoutes = require("./routes/login");
 const logoutRoutes = require("./routes/logout");
 const pinsRoutes = require('./routes/pins');
+
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use('/',homeRoutes(db));

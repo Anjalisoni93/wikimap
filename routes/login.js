@@ -1,7 +1,6 @@
 const express = require('express');
-const { get } = require('express/lib/response');
 const router  = express.Router();
-const {getuserByID,getfavouriteMapByUser,getMapsByUser} = require('../helper/helper')
+const {getuserByID,getfavouriteMapByUser,getMapsByUser,showPinsByUser} = require('../helper/helper')
 
 module.exports = (db) => {
   const tempVariable = {}
@@ -21,7 +20,12 @@ module.exports = (db) => {
           getfavouriteMapByUser(db,id)
           .then(favourites => {
             tempVariable.favourites = favourites
-            res.render('showUser',tempVariable);
+            showPinsByUser(db,id)
+            .then(pins =>{
+              tempVariable.pins = pins;
+              res.render('showUser',tempVariable);
+            })
+
           })
         })
       }

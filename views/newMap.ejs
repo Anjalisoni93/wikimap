@@ -1,90 +1,30 @@
-<style>
-
-.newmap-form {
-  padding: 50px 0;
-}
-
-.newmap-form form{
-  background-color: #fff;
-  max-width: 600px;
-  margin: auto;
-  padding: 50px 70px;
-  border-radius: 30px;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
-}
-
-.newmap-form .form-icon{
-	  text-align: center;
-    background-color: #5891ff;
-    border-radius: 50%;
-    font-size: 40px;
-    color: white;
-    width: 100px;
-    height: 100px;
-    margin: auto;
-    margin-bottom: 50px;
-    line-height: 100px;
-}
-
-.newmap-form .item{
-	border-radius: 20px;
-    margin-bottom: 25px;
-    padding: 10px 20px;
-}
-
-.newmap-form submit {
-  border-radius: 30px;
-    padding: 10px 20px;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: #5791ff;
-    border: none;
-    color: white;
-    margin-top: 20px;
-}
-
-.newmap-form .submit {
-  border-radius: 30px;
-  padding: 10px 20px;
-  font-size: 18px;
-  font-weight: bold;
-  background-color: #5791ff;
-  border: none;
-  color: white;
-  margin-top: 20px;
-  cursor: pointer;
-}
-
-.form-group {
-  text-align: center;
-}
-
-
-</style>
+<%- include('partials/_header') %>
 
 <div class="newmap-form">
-  <form>
+  <form action = "/maps" method="POST">
     <div class="form-icon">
         <span><i class="bi bi-map"></i>
         </span>
     </div>
     <div class="form-group">
-        <select class="form-control item" aria-label="Select Country">
-          <option selected>Open this menu</option>
-          <option>Canada</option>
-          <option>United States</option>
-          <option>India</option>
+        <!-- <input type="text" class="form-control item" id="country" placeholder="Country"> -->
+
+        <select class="form-control item" name = "Country">
+          <option value="Canada">Canada</option>
+          <option value="USA">United States</option>
+          <option value="India">India</option>
         </select>
     </div>
     <div class="form-group">
-        <input type="city" class="form-control item" id="city" placeholder="City">
+        <input type="city" name = "City" class="form-control item" id="city" placeholder="City">
     </div>
     <div class="form-group">
-        <input type="text" class="form-control item" id="title" placeholder="Title">
+        <input type="text" name = "title" class="form-control item" id="title" placeholder="Title">
     </div>
     <div class="form-group">
-      <button type="button" class="btn btn-block submit">Submit</button>
+      <button type="submit" class="btn btn-block submit">Submit</button>
     </div>
   </form>
 </div>
 
+<%- include('partials/_footer') %>
