@@ -18,9 +18,13 @@ html {
   justify-content: space-between;
   width: 17%;
 }
+
+// ShowMap styling
+
 #map {
   height: 400px;
 }
+
 #showmap{
   height: 700px;
   width:700px;
@@ -41,6 +45,9 @@ html {
 .pinDelete{
   display: inline;
 }
+
+// CreateMap form styling
+
 .newmap-form {
   padding: 50px 0;
 }
@@ -56,10 +63,10 @@ html {
 
 .newmap-form .form-icon{
 	  text-align: center;
-    background-color: #e3f2fd;
+    background-color: #94c8ec;
     border-radius: 50%;
     font-size: 40px;
-    color: white;
+    color: rgb(255, 255, 255);
     width: 100px;
     height: 100px;
     margin: auto;
@@ -79,7 +86,7 @@ html {
     padding: 10px 20px;
     font-size: 18px;
     font-weight: bold;
-    background-color: #e3f2fd;
+    background-color: #94c8ec;
     border: none;
     color: white;
     margin-top: 20px;
@@ -90,7 +97,7 @@ html {
   padding: 10px 20px;
   font-size: 18px;
   font-weight: bold;
-  background-color: #e3f2fd;
+  background-color: #94c8ec;
   border: none;
   color: white;
   margin-top: 20px;
@@ -99,4 +106,63 @@ html {
 
 .form-group {
   text-align: center;
+}
+
+// 404 Error styling
+
+#errorpage {
+  background-color: #94c8ec;
+}
+
+.mainbox {
+  background-color: #94c8ec;
+  margin: auto;
+  height: 600px;
+  width: 600px;
+  position: relative;
+}
+
+  .err {
+    color: #ffffff;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 11rem;
+    position:absolute;
+    left: 20%;
+    top: 8%;
+  }
+
+.far {
+  position: absolute;
+  font-size: 8.5rem;
+  left: 42%;
+  top: 15%;
+  color: #ffffff;
+}
+
+ .err2 {
+    color: #ffffff;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 11rem;
+    position:absolute;
+    left: 68%;
+    top: 8%;
+  }
+
+.msg {
+    text-align: center;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 1.6rem;
+    position:absolute;
+    left: 16%;
+    top: 45%;
+    width: 75%;
+  }
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  text-decoration: underline;
 }
