@@ -10,5 +10,6 @@ CREATE TABLE pins (
   image_url VARCHAR(255) NOT NULL,
   longitude FLOAT NOT NULL,
   latitude FLOAT NOT NULL,
-  created_at DATE NOT NULL
+  created_at DATE NOT NULL,
+  removed_at DATE DEFAULT NULL
 );
