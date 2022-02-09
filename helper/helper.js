@@ -108,7 +108,21 @@ const showAllpins = (db,mapID)=>{
     return allpins.rows;
   })
 }
-
+//get mapID from pinID
+const findMapOfPin = (db,pinID)=>{
+  const queryString = `SELECT maps.city as city, maps.title as title ,
+   maps.created_at as created_at,pins.longitude as longitude,
+   pins.latitude as latitude,pins.id as pin_id
+   FROM pins
+   JOIN maps ON maps.id = map_id
+   WHERE pins.id = $1;
+  `
+  const values = [pinID]
+  return db.query(queryString,values)
+  .then(res =>{
+    return res.rows[0];
+  })
+}
 //get all pins by particuler user
 const showPinsByUser = (db,userId)=>{
   const queryString = `SELECT * FROM pins WHERE user_id = $1
@@ -180,6 +194,6 @@ const createMap = (db,map) =>{
 }
 
 
-module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getfavouriteMapByUser,getcoordinates,showAllpins,showPinsByUser,showPinById,createMap,getCoordinates,updateMap,deleteMap,createPin,editPin,deletePin};
+module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getfavouriteMapByUser,getcoordinates,showAllpins,showPinsByUser,showPinById,createMap,getCoordinates,updateMap,deleteMap,createPin,editPin,deletePin,findMapOfPin};
 
 
