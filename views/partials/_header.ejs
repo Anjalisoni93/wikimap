@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
+  <!-- FontAwesome css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- leaflet css -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -22,7 +24,7 @@
  crossorigin=""></script>
 </head>
   <header>
-    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #94c8ec;">
       <a class="navbar-brand" href="/">WikiMap</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -32,21 +34,17 @@
           <div class="navbar-nav">
             <a class="nav-item nav-link" href="/maps">All Maps</a>
             <a class="nav-item nav-link" href="/maps/new">Create Maps</a>
-
             <a class="nav-item nav-link" href="/pins">Your Pins</a>
-    </div>
+          </div>
         </div>
         <form action="/logout" method = "POST" class = "username">
-          <span>Hi <%=user.name%></span>    <button type="submit" class="btn btn-info mt-4">Log Out</button>
-
+          <span>Hi <%=user.name%></span>
+          <button type="submit" class="btn btn-info mt-4">Log Out</button>
         </form>
-
       <% } else{ %>
-
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-item nav-link" href="/maps">All Maps</a>
-
           </div>
         </div>
       <% } %>
