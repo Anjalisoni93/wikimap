@@ -26,9 +26,10 @@ html {
 }
 
 #showmap{
-  height: 500px;
-  width:500px;
+  height: 800px;
+  width:800px;
 }
+
 .options{
   display: flex;
   flex-direction: row;
@@ -62,7 +63,10 @@ html {
 .pinDelete{
   display: inline;
 }
-
+.pinImage{
+  height:60px;
+  float: left;
+}
 // CreateMap form styling
 
 .newmap-form {
