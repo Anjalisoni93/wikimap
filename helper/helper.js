@@ -147,6 +147,27 @@ const createPin = (db, pin) => {
   })
 }
 
+//UPDATE PIN
+const editPin = (db,pinID,newPin) =>{
+  const queryString = `UPDATE pins SET title = $1, description = $2, image_url = $3
+  WHERE id = $4;`
+  const values = [newPin.title,newPin.description,newPin.image_url,pinID]
+  return db.query(queryString,values)
+  .then(res =>{
+    return res.rows;
+  })
+}
+//DELETE PIN
+const deletePin = (db,pinID) =>{
+  const queryString = `UPDATE pins SET removed_at = now()::date
+  WHERE id = $1;`
+  const values = [pinID];
+  return db.query(queryString,values)
+  .then(res => {
+    return res.rows;
+  })
+}
+
 //creating new map
 const createMap = (db,map) =>{
   const queryString = `INSERT INTO maps(user_id,title,country,city,latitude,longitude,created_at)
@@ -159,6 +180,6 @@ const createMap = (db,map) =>{
 }
 
 
-module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getfavouriteMapByUser,getcoordinates,showAllpins,showPinsByUser,showPinById,createMap,getCoordinates,updateMap,deleteMap,createPin};
+module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getfavouriteMapByUser,getcoordinates,showAllpins,showPinsByUser,showPinById,createMap,getCoordinates,updateMap,deleteMap,createPin,editPin,deletePin};
 
 
