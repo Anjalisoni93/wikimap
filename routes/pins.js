@@ -1,7 +1,7 @@
 const express = require('express');
 const { render } = require('express/lib/response');
 const router  = express.Router();
-const {showPinsByUser,getuserByID,showPinById, createPin, getMapById, getCoordinates} = require('../helper/helper');
+const {showPinsByUser,getuserByID,showPinById, createPin, getMapById, getCoordinates,editPin,deletePin, updateMap} = require('../helper/helper');
 //index route for pins
 module.exports = (db) => {
   router.get('/',(req,res)=>{
@@ -95,6 +95,73 @@ module.exports = (db) => {
       });
     }
   })
+
+  //EDIT ROUTE to see a form
+  router.get('/:id/edit',(req,res) =>{
+    const pinID = req.params.id;
+    const id = req.session.user_id;
+    const tempVariable = {};
+    if(!id){
+      res.send("Access denied");
+    }else{
+      getuserByID(db,id)
+      .then(user =>{
+        showPinById(db,pinID)
+        .then(pinDetails => {
+          tempVariable.user = user;
+          tempVariable.pinDetails = pinDetails
+          return res.render('editPin',tempVariable);
+        })
+
+      })
+    }
+  })
+
+  //PUT REQUEST
+  router.put('/:id',(req,res)=>{
+    const id = req.params.id;
+    const userID = req.session.user_id;
+    const title = req.body.title;
+    const description = req.body.description;
+    const image_url = req.body.image;
+
+    const newPin = {
+      title,
+      description,
+      image_url
+    }
+    editPin(db,id,newPin)
+    .then(updatedPin => {
+      return res.redirect(`/pins/${id}`)
+    })
+  })
+
+//DELETE ROUTE
+router.delete('/:id',(req,res)=>{
+  const user_id = req.session.user_id;
+  const pinID = req.params.id;
+      if(!user_id){
+        res.send('access denied');
+      }else{
+        getuserByID(db,user_id)
+        .then(user =>{
+          showPinById(db,pinID)
+          .then(pin =>{
+            if(user.id === pin.user_id){
+              deletePin(db,pinID)
+              .then(deletedPin=>{
+                return res.redirect(`/pins`);
+              })
+            }else{
+              res.send("access denied");
+            }
+          })
+        })
+      }
+
+
+    })
+
 
   return router;
 }
