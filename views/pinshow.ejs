@@ -12,8 +12,8 @@
 
         </div>
         <a href="/pins/<%=pin.id %>/edit" type="button" class="btn btn-outline-info">Edit</a>
-        <form action="/pin/<%=pin.id %>?_method=DELETE" class = 'pinDelete'method="post">
-          <button type="button" class="btn btn-outline-danger">Delete</button>
+        <form action="/pins/<%=pin.id %>?_method=DELETE" class = 'pinDelete'method="post">
+          <button type="submit" class="btn btn-outline-danger">Delete</button>
         </form>
 
       </div>
