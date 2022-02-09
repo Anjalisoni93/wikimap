@@ -27,7 +27,7 @@
     <nav class="navbar navbar-expand-md navbar-light" style="background-color: #94c8ec;">
       <a class="navbar-brand" href="/">WikiMap</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"></span>
       </button>
       <% if(user){ %>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -39,7 +39,7 @@
         </div>
         <form action="/logout" method = "POST" class = "username">
           <span>Hi <%=user.name%></span>
-          <button type="submit" class="btn btn-info mt-4">Log Out</button>
+          <button type="submit" class="btn btn-info">Log Out</button>
         </form>
       <% } else{ %>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">

@@ -155,7 +155,6 @@ router.post('/',(req,res)=>{
 
   //ROUTE TO DELETE A MAP
     router.delete('/:id',(req,res)=>{
-
       const user_id = req.session.user_id;
       const mapID = req.params.id;
       if(!user_id){
@@ -168,7 +167,6 @@ router.post('/',(req,res)=>{
             if(user.id === map.user_id){
               deleteMap(db,mapID)
               .then(deletedMap=>{
-
                 return res.redirect(`/login/${user_id}`);
               })
             }else{
@@ -177,8 +175,6 @@ router.post('/',(req,res)=>{
           })
         })
       }
-
-
     })
 
 

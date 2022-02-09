@@ -10,17 +10,17 @@
       </span>
   </div>
     <div class="form-group">
-        <select class="form-control item" name = "Country" >
+        <select class="form-control item" name = "Country" required>
           <option selected value="<%= mapDetails.country%>"><%= mapDetails.country%></option>
           <option value="USA">United States</option>
           <option value="India">India</option>
         </select>
     </div>
     <div class="form-group">
-        <input type="city" name = "City" class="form-control item" id="city" value = "<%=mapDetails.city%>">
+        <input type="city" name = "City" class="form-control item" id="city" value = "<%=mapDetails.city%>" required>
     </div>
     <div class="form-group">
-        <input type="text" name = "title" class="form-control item" id="title" value = "<%=mapDetails.title%>">
+        <input type="text" name = "title" class="form-control item" id="title" value = "<%=mapDetails.title%>" required>
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-block submit">Submit</button>
