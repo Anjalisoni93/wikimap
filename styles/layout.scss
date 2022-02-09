@@ -16,11 +16,13 @@ html {
   flex-direction:row;
   align-items: center;
   justify-content: space-between;
-  width: 17%;
+  width: 15%;
+}
+#caption {
+  padding: 15px;;
 }
 
 // ShowMap styling
-
 #map {
   height: 400px;
 }

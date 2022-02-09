@@ -111,8 +111,9 @@ const showAllpins = (db,mapID)=>{
 //get mapID from pinID
 const findMapOfPin = (db,pinID)=>{
   const queryString = `SELECT maps.city as city, maps.title as title ,
-   maps.created_at as created_at,maps.longitude as longitude,
-   maps.latitude as latitude,pins.id as pin_id FROM pins
+   maps.created_at as created_at,pins.longitude as longitude,
+   pins.latitude as latitude,pins.id as pin_id
+   FROM pins
    JOIN maps ON maps.id = map_id
    WHERE pins.id = $1;
   `
@@ -193,6 +194,6 @@ const createMap = (db,map) =>{
 }
 
 
-module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getfavouriteMapByUser,getcoordinates,showAllpins,showPinsByUser,showPinById,createMap,getCoordinates,updateMap,deleteMap,createPin,editPin,deletePin};
+module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getfavouriteMapByUser,getcoordinates,showAllpins,showPinsByUser,showPinById,createMap,getCoordinates,updateMap,deleteMap,createPin,editPin,deletePin,findMapOfPin};
 
 
