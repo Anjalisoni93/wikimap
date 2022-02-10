@@ -37,12 +37,7 @@
         L.marker([pin.latitude,pin.longitude])
         .addTo(homePage_map)
         .bindPopup(`<h4>${pin.title}</h4><br><img class = "pinImage" src = "${pin.image_url}"><span>${pin.description.substring(0,30)}..</span>`).openPopup();
-
-
-
       }
-
-
     </script>
     <% if (user && user.id === mapDetails.user_id) {%>
       <div class="options">
@@ -55,10 +50,11 @@
     <% } else {%>
       <div class="options">
         <a href="/maps" type="button" class="btn btn-warning">Go Back</a>
+        <form action="/login/favourite/<%= mapDetails.id %>" method="post">
+          <button type="submit" class="btn btn-info">Add to Favourites</button>
+        </form>
         <a href = "/pins/maps/<%= mapDetails.id%>/newpin" type="button" class="btn btn-success">Add Pin</a>
       </div>
     <% } %>
-
 </div>
-
 <%- include('partials/_footer') %>
