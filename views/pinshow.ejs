@@ -41,7 +41,7 @@
             //console.log(pins);
             //console.log(data)
             // L.marker([latitude,longitude]).addTo(homePage_map)
-            let marker = L.marker(['<%-pin.latitude %>','<%- pin.longitude %>'])
+            let marker = L.marker(['<%=pin.latitude %>','<%= pin.longitude %>'])
               .addTo(homePage_map);
 
             marker.bindPopup(`<h4><%= pin.title %></h4><br><img class = "pinImage" src = "<%= pin.image_url %>"><span><%= pin.description %>..</span>`)
