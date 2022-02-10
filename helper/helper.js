@@ -65,16 +65,6 @@ const getMapsByUser = (db,provided_id)=>{
     })
 }
 
-//get all favourite maps by particuler user
-const getfavouriteMapByUser = (db,provided_id)=>{
-  const queryString = `SELECT * FROM favourite_maps WHERE user_id = $1;`
-  const values = [provided_id];
-  return db.query(queryString,values)
-    .then(res => {
-      return res.rows;
-    })
-}
-
 //update Map
 const updateMap = (db,mapID,newMap)=>{
   const queryString = `UPDATE maps SET title = $1
@@ -193,7 +183,43 @@ const createMap = (db,map) =>{
   })
 }
 
+// Show favorites of user
+const showFavorites = (db, userId) => {
+  const queryString = `SELECT maps.id, maps.title, favourite_maps.id as favouriteId
+                        FROM favourite_maps
+                        JOIN maps ON favourite_maps.map_id = maps.id
+                        WHERE favourite_maps.user_id = $1
+                        AND favourite_maps.removed_at IS NULL
+                        AND maps.removed_at IS NULL;`
+  const values = [userId];
+  return db.query(queryString, values)
+  .then(res => {
+    return res.rows;
+  })
+}
 
-module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getfavouriteMapByUser,getcoordinates,showAllpins,showPinsByUser,showPinById,createMap,getCoordinates,updateMap,deleteMap,createPin,editPin,deletePin,findMapOfPin};
+// Delete favoutites
+const deleteFavourite = (db, favouriteId) => {
+  const queryString = `UPDATE favourite_maps SET removed_at = now()::date
+  WHERE favourite_maps.id = $1;`
+  const values = [favouriteId];
+  return db.query(queryString, values)
+  .then(res => {
+    return res.rows;
+  })
+}
+
+// Add Favourites
+const addFavourite = (db, favourite) => {
+  const queryString = `INSERT INTO favourite_maps (user_id, map_id, created_at)
+                        VALUES ($1, $2, $3);`
+  const values = [favourite.user_id, favourite.map_id, favourite.created_at];
+  return db.query(queryString, values)
+  .then(res => {
+    return res.rows[0];
+  })
+}
+
+module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getcoordinates,showAllpins,showPinsByUser,showPinById,createMap,getCoordinates,updateMap,deleteMap,createPin,editPin,deletePin,findMapOfPin, showFavorites, deleteFavourite, addFavourite};
 
 
