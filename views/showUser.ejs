@@ -6,9 +6,7 @@
   <div class="card-body">
     <h5 class="card-title">hello <%= user.name %></h5>
     <p class="card-text">Maps created by you</p>
-
   </div>
-
 </div>
 
 <div class="mapcontainer">
@@ -18,7 +16,6 @@
 
       </div>
       <script>
-
           L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiandhbGlhIiwiYSI6ImNrejdxa21icDFkaXUyb254d3lycm1waTMifQ.EElK29xVtr-xefOmbDrrYw', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
             maxZoom: 18,
@@ -27,9 +24,6 @@
            zoomOffset: -1,
            accessToken: 'pk.eyJ1IjoiandhbGlhIiwiYSI6ImNrejdxa21icDFkaXUyb254d3lycm1waTMifQ.EElK29xVtr-xefOmbDrrYw'
            }).addTo(L.map("userMap-<%= map.id %>").setView([`<%= map.latitude %>`,`<%= map.longitude %>`], 13))
-
-
-
       </script>
      <div class="card-body">
      <p class="card-text"><%= map.title %></p>
@@ -38,6 +32,28 @@
    </div>
  <% } %>
 </div>
-
+<section>
+  <h6><i class="fa-solid fa-heart"></i> All Your Favorite Maps</h6>
+  <table class="table favouriteTable" >
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(let favourite of favourites) { %>
+        <tr>
+          <td><a href="/maps/<%= favourite.id %>"><%= favourite.title%></a></td>
+          <td>
+            <form action="favourite/<%= favourite.favouriteid%>?_method=DELETE" method="post">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+     <% } %>
+    </tbody>
+  </table>
+</section>
 
 <%- include('partials/_footer') %>
