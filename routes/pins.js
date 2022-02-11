@@ -1,11 +1,10 @@
 const express = require('express');
-const { render } = require('express/lib/response');
 const router = express.Router();
 const { showPinsByUser, getuserByID, showPinById, createPin, getMapById, getCoordinates, editPin, deletePin, updateMap, findMapOfPin } = require('../helper/helper');
 //index route for pins
 module.exports = (db) => {
   router.get('/', (req, res) => {
-    const tempVariable = {}
+    const tempVariable = {};
     const id = req.session.user_id;
     if (!id) {
       res.send('not authorized to view pins');
@@ -15,12 +14,12 @@ module.exports = (db) => {
           tempVariable.user = user;
           showPinsByUser(db, id)
             .then(pins => {
-              tempVariable.pins = pins
+              tempVariable.pins = pins;
               return res.render('pinIndex', tempVariable);
-            })
-        })
+            });
+        });
     }
-  })
+  });
 
   // Create pin route
   router.get('/maps/:id/newpin', (req, res) => {
@@ -29,7 +28,7 @@ module.exports = (db) => {
     const tempVariable = {};
     if (!id) {
       tempVariable.user = null;
-      res.render('serverError',tempVariable);
+      res.render('serverError', tempVariable);
     } else {
       getuserByID(db, id)
         .then(user => {
@@ -38,10 +37,10 @@ module.exports = (db) => {
               tempVariable.user = user;
               tempVariable.map = map;
               return res.render('pinNew', tempVariable);
-            })
-        })
+            });
+        });
     }
-  })
+  });
 
   // Post route for pin
   router.post('/maps/:id', (req, res) => {
@@ -68,23 +67,23 @@ module.exports = (db) => {
           longitude,
           latitude,
           created_at
-        }
+        };
         createPin(db, pin)
           .then(newPin => {
             return res.redirect(`/maps/${map_id}`);
-          })
-      })
-  })
+          });
+      });
+  });
 
 
   //route to get particuler pin by id
   router.get('/:id', (req, res) => {
     const pinId = req.params.id;
-    const tempVariable = {}
+    const tempVariable = {};
     const id = req.session.user_id;
     if (!id) {
       tempVariable.user = null;
-      res.render('serverError',tempVariable);
+      res.render('serverError', tempVariable);
     } else {
       getuserByID(db, id)
         .then(user => {
@@ -93,15 +92,15 @@ module.exports = (db) => {
               findMapOfPin(db, pinId)
                 .then(mapDetails => {
                   tempVariable.user = user;
-                  tempVariable.mapDetails = mapDetails
+                  tempVariable.mapDetails = mapDetails;
                   tempVariable.pin = pin;
                   return res.render('pinshow', tempVariable);
-                })
+                });
 
-            })
+            });
         });
     }
-  })
+  });
 
   //EDIT ROUTE to see a form
   router.get('/:id/edit', (req, res) => {
@@ -109,21 +108,21 @@ module.exports = (db) => {
     const id = req.session.user_id;
     const tempVariable = {};
     if (!id) {
-      tempVariable.user = null
-      res.render('serverError',tempVariable);
+      tempVariable.user = null;
+      res.render('serverError', tempVariable);
     } else {
       getuserByID(db, id)
         .then(user => {
           showPinById(db, pinID)
             .then(pinDetails => {
               tempVariable.user = user;
-              tempVariable.pinDetails = pinDetails
+              tempVariable.pinDetails = pinDetails;
               return res.render('editPin', tempVariable);
-            })
+            });
 
-        })
+        });
     }
-  })
+  });
 
   //PUT REQUEST
   router.put('/:id', (req, res) => {
@@ -140,17 +139,17 @@ module.exports = (db) => {
     }
     editPin(db, id, newPin)
       .then(updatedPin => {
-        return res.redirect(`/pins/${id}`)
-      })
-  })
+        return res.redirect(`/pins/${id}`);
+      });
+  });
 
   //DELETE ROUTE
   router.delete('/:id', (req, res) => {
     const user_id = req.session.user_id;
     const pinID = req.params.id;
     if (!user_id) {
-      tempVariable.user = null
-      res.render('serverError',tempVariable);
+      tempVariable.user = null;
+      res.render('serverError', tempVariable);
     } else {
       getuserByID(db, user_id)
         .then(user => {
@@ -160,18 +159,18 @@ module.exports = (db) => {
                 deletePin(db, pinID)
                   .then(deletedPin => {
                     return res.redirect(`/pins`);
-                  })
+                  });
               } else {
-                tempVariable.user = null
-                res.render('serverError',tempVariable);
+                tempVariable.user = null;
+                res.render('serverError', tempVariable);
               }
-            })
-        })
+            });
+        });
     }
 
 
-  })
+  });
 
 
   return router;
-}
+};
