@@ -1,10 +1,11 @@
 const axios = require('axios');
+const res = require('express/lib/response');
 const Geo_Api = process.env.GEOCODE_API;
 require("dotenv").config();
 
 
 //get coordinates of first Row to show on homepage
-const getcoordinates = (db) =>{
+const getHomePageMap = (db) =>{
   const queryString = `SELECT maps.longitude as longitude,maps.latitude as latitude
       FROM maps
       ORDER BY maps.id
@@ -23,6 +24,9 @@ const getuserByID = (db,givenId)=>{
   return db.query (queryString,values)
         .then(res => {
          return  res.rows[0];
+        })
+        .catch(err => {
+          return undefined;
         })
 
 };
@@ -220,6 +224,6 @@ const addFavourite = (db, favourite) => {
   })
 }
 
-module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getcoordinates,showAllpins,showPinsByUser,showPinById,createMap,getCoordinates,updateMap,deleteMap,createPin,editPin,deletePin,findMapOfPin, showFavorites, deleteFavourite, addFavourite};
+module.exports = {getuserByID,getAllMaps,getMapsByUser,getMapById,getHomePageMap,showAllpins,showPinsByUser,showPinById,createMap,getCoordinates,updateMap,deleteMap,createPin,editPin,deletePin,findMapOfPin, showFavorites, deleteFavourite, addFavourite};
 
 
