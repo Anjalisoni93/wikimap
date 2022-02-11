@@ -62,7 +62,8 @@ router.post('/',(req,res)=>{
       const tempVariable = {}
       const id = req.session.user_id;
       if(!id){
-        res.send("not Authorized to create")
+        tempVariable.user = null
+        res.render('serverError',tempVariable);
       } else {
         getuserByID(db,id)
         .then(user =>{
@@ -124,7 +125,8 @@ router.post('/',(req,res)=>{
           const id = req.session.user_id;
           const mapID = req.params.id;
           if(!id){
-            res.send("access denied")
+            tempVariable.user = null
+            res.render('serverError',tempVariable);
           }else{
             getuserByID(db,id)
             .then(user=>{
@@ -158,7 +160,8 @@ router.post('/',(req,res)=>{
       const user_id = req.session.user_id;
       const mapID = req.params.id;
       if(!user_id){
-        res.send('access denied');
+        tempVariable.user = null
+        res.render('serverError',tempVariable);
       }else{
         getuserByID(db,user_id)
         .then(user =>{
@@ -170,7 +173,8 @@ router.post('/',(req,res)=>{
                 return res.redirect(`/login/${user_id}`);
               })
             }else{
-              res.send("access denied");
+              tempVariable.user = null
+              res.render('serverError',tempVariable);
             }
           })
         })

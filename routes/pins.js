@@ -28,7 +28,8 @@ module.exports = (db) => {
     const map_id = req.params.id;
     const tempVariable = {};
     if (!id) {
-      res.send('Access denied!');
+      tempVariable.user = null;
+      res.render('serverError',tempVariable);
     } else {
       getuserByID(db, id)
         .then(user => {
@@ -82,7 +83,8 @@ module.exports = (db) => {
     const tempVariable = {}
     const id = req.session.user_id;
     if (!id) {
-      res.send('not authorized to view pins');
+      tempVariable.user = null;
+      res.render('serverError',tempVariable);
     } else {
       getuserByID(db, id)
         .then(user => {
@@ -107,7 +109,8 @@ module.exports = (db) => {
     const id = req.session.user_id;
     const tempVariable = {};
     if (!id) {
-      res.send("Access denied");
+      tempVariable.user = null
+      res.render('serverError',tempVariable);
     } else {
       getuserByID(db, id)
         .then(user => {
@@ -146,7 +149,8 @@ module.exports = (db) => {
     const user_id = req.session.user_id;
     const pinID = req.params.id;
     if (!user_id) {
-      res.send('access denied');
+      tempVariable.user = null
+      res.render('serverError',tempVariable);
     } else {
       getuserByID(db, user_id)
         .then(user => {
@@ -158,7 +162,8 @@ module.exports = (db) => {
                     return res.redirect(`/pins`);
                   })
               } else {
-                res.send("access denied");
+                tempVariable.user = null
+                res.render('serverError',tempVariable);
               }
             })
         })
