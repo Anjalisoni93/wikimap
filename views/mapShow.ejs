@@ -2,22 +2,22 @@
 
 <div class="card text-center">
   <div class="card-body">
-    some of available maps of places around <%= mapDetails.city %>(<%=mapDetails.country %>)
+   <h5> some of available maps of places around <%= mapDetails.city %>(<%=mapDetails.country %>)</h5>
   </div>
 </div>
 
   <div class="card userMap">
     <div class="card-body">
       <h5 class="card-title"><%= mapDetails.title %></h5>
-      <p class="card-text"><small class="text-muted"><%=mapDetails.created_at.toDateString() %></small></p>
+      <p class="card-text text-center"><small class="text-muted"><%=mapDetails.created_at.toDateString() %></small></p>
     </div>
-  <div id = "showmap">
+  <div id = "allMaps">
   </div>
 
   <script>
     let latitude = `<%= mapDetails.latitude %>`;
     let longitude = `<%= mapDetails.longitude %>`;
-    let  homePage_map =  L.map('showmap').setView([latitude,longitude], 13);
+    let  homePage_map =  L.map('allMaps').setView([latitude,longitude], 13);
       L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiandhbGlhIiwiYSI6ImNrejdxa21icDFkaXUyb254d3lycm1waTMifQ.EElK29xVtr-xefOmbDrrYw', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 10,
@@ -36,16 +36,20 @@
          console.log(pin);
         L.marker([pin.latitude,pin.longitude])
         .addTo(homePage_map)
-        .bindPopup(`<h4>${pin.title}</h4><br><img class = "pinImage" src = "${pin.image_url}"><span>${pin.description.substring(0,30)}..</span>`).openPopup();
+        .bindPopup(`<div class = "popUpImage"><h4>${pin.title}</h4><br><img class = "pinImage" src = "${pin.image_url}"><span>${pin.description.substring(0,30)}..</span></div>`).openPopup();
       }
     </script>
     <% if (user && user.id === mapDetails.user_id) {%>
-      <div class="options">
+      <div class="options mapShowBtn">
+        <a href="/login/<%= user.id %>" type="button" class="btn btn-success">Go Back</a>
         <a href = '/maps/<%= mapDetails.id%>/edit' type="button" class="btn btn-warning">Edit Map</a>
-        <form action="/maps/<%=mapDetails.id %>?_method=DELETE" class = 'pinDelete'method="POST">
-          <button type="submit" class="btn btn-danger">Delete</button>
-          <a href = "/pins/maps/<%= mapDetails.id%>/newpin" type="button" class="btn btn-success">Add Pin</a>
+        <form action="/login/favourite/<%= mapDetails.id %>" method="post">
+          <button type="submit" class="btn btn-info">Add to Favourites</button>
         </form>
+        <form action="/maps/<%=mapDetails.id %>?_method=DELETE" class = 'pinDelete'method="POST">
+          <button type="submit" class="btn btn-danger">Delete Map</button>
+       </form>
+        <a href = "/pins/maps/<%= mapDetails.id%>/newpin" type="button" class="btn btn-success">Add Pin</a>
       </div>
     <% } else {%>
       <div class="options">

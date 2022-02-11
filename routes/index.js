@@ -1,10 +1,10 @@
 const express = require('express');
 const router  = express.Router();
-const {getuserByID,getcoordinates} = require('../helper/helper')
+const {getuserByID,getHomePageMap} = require('../helper/helper')
 //user helper function get coordinates to get latitude and longitude
 module.exports = (db) => {
   const tempVariable = {}
-  getcoordinates(db)
+  getHomePageMap(db)
   .then(data =>{
     let latitude = data.latitude;
     let longitude = data.longitude;

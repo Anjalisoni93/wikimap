@@ -1,13 +1,14 @@
 <%- include('partials/_header') %>
 <div class="card text-center">
   <div class="card-header">
-    Hi <%= user.name %>
+   <h2> Hi <%= user.name %>!</h2>
   </div>
   <div class="card-body">
-    <h5 class="card-title">Here are the Pins you have created</h5>
+    <h4 class="card-title">Here are the Pins you have created</h4>
     </div>
 </div>
-<table class="table table-info">
+<div class="pinList">
+  <table class="table table-borderless">
   <thead>
     <tr>
       <th scope="col">Title</th>
@@ -25,7 +26,7 @@
    <% } %>
   </tbody>
 </table>
-
+</div>
 
 
 <%- include('partials/_footer') %>

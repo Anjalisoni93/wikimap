@@ -14,6 +14,9 @@
   <script type="text/javascript" src="/scripts/app.js"></script>
   <!-- FontAwesome css -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- 404--error styles -->
+  <script src="https://kit.fontawesome.com/4b9ba14b0f.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap" rel="stylesheet">
   <!-- leaflet css -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -38,7 +41,7 @@
           </div>
         </div>
         <form action="/logout" method = "POST" class = "username">
-          <span>Hi <%=user.name%></span>
+          <a href = "/login/<%= user.id %>">Hi <%=user.name%></a>
           <button type="submit" class="btn btn-info">Log Out</button>
         </form>
       <% } else{ %>

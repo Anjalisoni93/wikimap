@@ -1,23 +1,22 @@
 <%- include('partials/_header') %>
 
 <div class="newmap-form">
-  <p class="lead text-center">
+  <h4 class="text-center">
     Edit Your map
-  </p>
+  </h4>
   <form action = "/maps/<%= mapDetails.id %>?_method=PUT" method="POST">
     <div class="form-icon">
       <span><i class="fa-solid fa-pencil"></i>
       </span>
   </div>
     <div class="form-group">
-        <select class="form-control item" name = "Country" required>
+        <select class="form-control item" name = "Country" disabled>
           <option selected value="<%= mapDetails.country%>"><%= mapDetails.country%></option>
-          <option value="USA">United States</option>
-          <option value="India">India</option>
+
         </select>
     </div>
     <div class="form-group">
-        <input type="city" name = "City" class="form-control item" id="city" value = "<%=mapDetails.city%>" required>
+        <input type="city" name = "City" class="form-control item" id="city" value = "<%=mapDetails.city%>" disabled>
     </div>
     <div class="form-group">
         <input type="text" name = "title" class="form-control item" id="title" value = "<%=mapDetails.title%>" required>

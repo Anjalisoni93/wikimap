@@ -1,15 +1,24 @@
 // See: https://sass-lang.com/
 
 body,
+
 html {
   margin: 0;
 }
+.navbar{
+  font-size: 20px;
+  font-weight: bold;
+}
 .navbar a {
-  width: 9em;
+  color:black;
+  width: 8em;
 }
 .map_Logo{
   height: 700px;
   width: 700px;
+}
+.navbar button{
+  width: 10em;
 }
 .username{
   display: flex;
@@ -21,20 +30,80 @@ html {
 #caption {
   padding: 15px;
 }
-
-//Favourite table styling
-.favouriteTable {
-  background-color: #92c8ec !important;
+.showUserMap{
+  height: 400px;
 }
 
+//Favourite table styling
+
+.favourite_style {
+  padding-top: 20px;
+  display: flex;
+  flex-direction:column ;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  background-color: #FDFD96;
+  border-radius: 10px;
+  width: 70%;
+  margin: 0 auto;
+
+}
+.favouriteHeader{
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+
+}
+.favdata{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  justify-content: space-between;
+}
+.favTitle{
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+.favTitle a{
+  color: black;
+  font-size: 20px;
+}
+//ALL MAPS STYLING
+.mapList{
+background-color: #FDFD96;
+border-radius: 10px;
+font-size: 20px;
+width:55%;
+margin: 0 auto;
+padding-top:20px;
+margin-top: 40px;
+}
+.mapList table{
+  text-align:left;
+  margin-left: 80px;
+
+}
+
+.mapList a{
+  color: black;
+}
 // ShowMap styling
+#allMaps{
+  height: 600px;
+  width: 600px;
+}
 #map {
   height: 400px;
 }
 
 #showmap{
-  height: 800px;
-  width:800px;
+  height:500px;
+  width:500px;
 }
 
 .options{
@@ -43,9 +112,30 @@ html {
   justify-content: space-between;
   width:32rem;
   margin-top: 1em;
+  padding:20px;
+}
+.mapShowBtn{
+  width: 50%;
+
+}
+.mapShowBtn a{
+  margin: 20px;
+  height: 70px;
+  font-weight: bold;
+}
+.mapShowBtn button{
+  height: 70px;
+  margin: 20px;
+  font-weight: bold;
 }
 .userMap{
   align-items: center;
+  width: 100%;
+  height: 70%;
+}
+#allMaps{
+  width: 700px;
+  height: 700px;
 }
 .mapcontainer{
   display: flex;
@@ -59,10 +149,58 @@ html {
   margin-bottom: 3em;
 }
 
-.userMap{
-  height: 400px;
+.wrapper{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 2em;
+  height: 500px;
+}
+//PIN styles
+.pinList{
+  background-color: #FDFD96;
+  border-radius: 10px;
+  font-size: 20px;
+  width:60%;
+  margin: 0 auto;
+  padding-top:20px;
+  margin-top: 40px;
+
+}
+.pinImage{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height:500px;
+  width:500px;
+}
+.dsc{
+  padding-top: 10px;
+  width: 100%;
+  font-size: 17px;
+}
+.pinImage img{
+  height: 500px;
+  width:600px;
+}
+.pinImage a{
+width: 25%;
+}
+.pinButtons{
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.pinList table{
+  margin-left: 20px;
+  text-align:left;
+
 }
 
+.pinList a{
+  color: black;
+}
 .pinContainer{
   margin-top: 2em;
   margin: 12em;
@@ -72,16 +210,17 @@ html {
 .pinDelete{
   display: inline;
 }
-.pinImage{
-  height:60px;
-  float: left;
-}
+
 // CreateMap form styling
 
 .newmap-form {
   padding: 50px 0;
+
 }
 
+.newmap-form h4{
+  padding-bottom: 30px;
+}
 .newmap-form form{
   background-color: #fff;
   max-width: 600px;
@@ -137,7 +276,17 @@ html {
 .form-group {
   text-align: center;
 }
+//popUP Styles
+.popUpImage{
+  padding:5px;
 
+}
+.popUpImage img{
+  height:3rem;
+  width:8em;
+  margin-right:1em;
+  margin-bottom: 1em;
+}
 // 404 Error styling
 
 #errorpage {

@@ -1,31 +1,23 @@
 <%- include('partials/_header') %>
-  <div class="wrapper">
+<div class = "wrapper">
+  <div class="pinImage">
+    <img src="<%= pin.image_url %>"  alt="...">
+   <h3> <%=pin.title %></h3>
+    <p class="card-text dsc">
+      <%= pin.description %>
+    </p>
+    <div class="pinButtons">
+      <a href="/pins/<%=pin.id %>/edit" type="button" class="btn btn-outline-info">Edit</a>
+      <form action="/pins/<%=pin.id %>?_method=DELETE" class='pinDelete' method="post">
+        <button type="submit" class="btn btn-outline-danger">Delete</button>
+      </form>
+    </div>
 
-      <div class="card " style="max-width: 540px;">
-        <div class="row g-0">
-          <div class="col-md-4">
-            <img src="<%= pin.image_url %>" class="img-fluid rounded-start" alt="...">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">
-                <%=pin.title %>
-              </h5>
-              <p class="card-text">
-                <%= pin.description %>
-              </p>
+  </div>
 
-            </div>
-            <a href="/pins/<%=pin.id %>/edit" type="button" class="btn btn-outline-info">Edit</a>
-            <form action="/pins/<%=pin.id %>?_method=DELETE" class='pinDelete' method="post">
-              <button type="submit" class="btn btn-outline-danger">Delete</button>
-            </form>
-
-          </div>
-          <div id="showmap">
-          </div>
-
-          <script>
+  <div id = "showmap">
+  </div>
+      <script>
             let latitude = `<%= mapDetails.latitude %>`;
             let longitude = `<%= mapDetails.longitude %>`;
             let homePage_map = L.map('showmap').setView([latitude, longitude], 13);
@@ -43,8 +35,8 @@
             // L.marker([latitude,longitude]).addTo(homePage_map)
             let marker = L.marker(['<%=pin.latitude %>','<%= pin.longitude %>'])
               .addTo(homePage_map);
-            marker.bindPopup(`<h4><%= pin.title %></h4><br><img class = "pinImage" src = "<%= pin.image_url %>"><span><%= pin.description %>..</span>`)
+            marker.bindPopup(`<div class = "popUpImage"><h5><%= pin.title %></h5><br><img class = "pinImage" src = "<%= pin.image_url %>"><span><%= pin.description %>..</span></div>`)
               .openPopup();
           </script>
-        </div>
+</div>
         <%- include('partials/_footer') %>
