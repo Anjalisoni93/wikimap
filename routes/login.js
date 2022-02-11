@@ -11,7 +11,7 @@ module.exports = (db) => {
       .then(user => {
       if(!user){
         tempVariable.user = null;
-        res.send("no user found..");
+        res.render('serverError',tempVariable);
       }else{
         tempVariable.user = user
         getMapsByUser(db,id)
@@ -36,6 +36,11 @@ module.exports = (db) => {
   router.post('/favourite/:id', (req, res) =>{
     const map_id = req.params.id;
     const user_id = req.session.user_id;
+    const tempVariable = {}
+    if(!user_id){
+      tempVariable.user = null;
+      res.render('serverError',tempVariable);
+    }else{
     const created_at = new Date();
     const favourite = {
       user_id,
@@ -45,8 +50,10 @@ module.exports = (db) => {
     addFavourite(db, favourite)
     .then(createdFavourite => {
       return res.redirect(`/login/${user_id}`);
-    })
-  })
+    });
+    }
+
+  });
 
   // Delete favourites route
   router.delete('/favourite/:id', (req, res) => {
